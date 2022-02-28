@@ -15,7 +15,7 @@ function sflag(data){
             }
         }
     }
-    console.log(removedSpaces.join("\r\n"))
+    return removedSpaces.join("\r\n")
 }
 function bflag(data){
     f1=data.split("\r\n")
@@ -30,7 +30,7 @@ function bflag(data){
             b.push(f1[i])
         }
     }
-    console.log(b.join("\r\n"))
+    return b.join("\r\n")
 }
 function nflag(data){
     f1=data.split("\r\n")
@@ -40,6 +40,17 @@ function nflag(data){
         n.push(`${count}. ${f1[i]}`)
         count++
     }
-    console.log(n.join("\r\n"))
+    return n.join("\r\n")
 }
-module.exports={sflag,bflag,nflag}
+function getFilesData(files){
+    let filesData=""
+    for(let i=0;i<files.length;i++){
+        if(!fs.readFileSync(`./${files[i]}`)){
+            console.log("One or more file doesn't exist")
+            return ""
+        }
+        filesData+=fs.readFileSync(`./${files[i]}`)
+    }
+    return filesData
+}
+module.exports={sflag,bflag,nflag,getFilesData}
